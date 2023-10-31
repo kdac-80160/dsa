@@ -1,6 +1,6 @@
 package com.sunbeam;
 
-public class ReverseList {
+public class SortList {
 	class Node {
 		private int data;
 		private Node next;
@@ -14,7 +14,7 @@ public class ReverseList {
 	private Node head;
 	private Node tail;
 
-	public ReverseList() {
+	public SortList() {
 		this.head = null;
 		this.tail = null;
 	}
@@ -103,20 +103,21 @@ public class ReverseList {
 		}
 	}
 
-	public void reverseList() {
-		this.tail = head;
-		Node rear, front;
-		rear = head;
-		head = head.next;
-		front = head.next;
-		this.tail.next = null;
-		while(true) {
-		head.next = rear;
-		rear = head;
-		if(front==null)
-			break;
-		head = front;
-		front = front.next;
+	public void sortList() {
+		if (isEmpty())
+			System.out.println("List is empty.");
+		else if (head.next == null)
+			System.out.println("List has only one element.");
+		else {
+			Node i, j;
+			for (i = head; i.next!= null; i = i.next) {
+				for (j = head; j.next != null; j = j.next)
+					if (j.data > j.next.data) {
+						int temp = j.data;
+						j.data = j.next.data;
+						j.next.data = temp;
+					}
+			}
 		}
 	}
 }

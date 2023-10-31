@@ -1,6 +1,6 @@
 package com.sunbeam;
 
-public class ReverseList {
+public class SinglyLinearLinkedList {
 	class Node {
 		private int data;
 		private Node next;
@@ -14,7 +14,7 @@ public class ReverseList {
 	private Node head;
 	private Node tail;
 
-	public ReverseList() {
+	public SinglyLinearLinkedList() {
 		this.head = null;
 		this.tail = null;
 	}
@@ -91,32 +91,49 @@ public class ReverseList {
 		}
 
 	}
-
-	public void display() {
+	
+	public void display()
+	{
 		Node trav = head;
-		while (trav != null) {
-			if (trav.next != null)
-				System.out.print(trav.data + "->");
+		while(trav!=null)
+		{
+			if(trav.next!=null)
+			System.out.print(trav.data+"->");
 			else
 				System.out.println(trav.data);
 			trav = trav.next;
 		}
 	}
-
-	public void reverseList() {
-		this.tail = head;
-		Node rear, front;
-		rear = head;
-		head = head.next;
-		front = head.next;
-		this.tail.next = null;
-		while(true) {
-		head.next = rear;
-		rear = head;
-		if(front==null)
-			break;
-		head = front;
-		front = front.next;
+	
+	public void addSorted(int value)
+	{
+		if(isEmpty())
+			addFirst(value);
+		else if(head.next==null)
+		{
+			if(head.data>value)
+				addFirst(value);
+			else
+				addLast(value);
 		}
+		else if(head.data>value)
+			addFirst(value);
+		else
+		{
+			Node trav = head;
+			while(trav.next!=null && trav.next.data<value)
+			{
+				trav = trav.next;
+			}
+			if(trav.next==null)
+				addLast(value);
+			else
+			{
+				Node node = new Node(value);
+				node.next = trav.next;
+				trav.next = node;
+			}
+		}
+			
 	}
 }

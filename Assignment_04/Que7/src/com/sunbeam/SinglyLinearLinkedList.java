@@ -1,6 +1,6 @@
 package com.sunbeam;
 
-public class ReverseList {
+public class SinglyLinearLinkedList {
 	class Node {
 		private int data;
 		private Node next;
@@ -14,7 +14,7 @@ public class ReverseList {
 	private Node head;
 	private Node tail;
 
-	public ReverseList() {
+	public SinglyLinearLinkedList() {
 		this.head = null;
 		this.tail = null;
 	}
@@ -91,32 +91,33 @@ public class ReverseList {
 		}
 
 	}
-
-	public void display() {
+	
+	public void display()
+	{
 		Node trav = head;
-		while (trav != null) {
-			if (trav.next != null)
-				System.out.print(trav.data + "->");
+		while(trav!=null)
+		{
+			if(trav.next!=null)
+			System.out.print(trav.data+"->");
 			else
 				System.out.println(trav.data);
 			trav = trav.next;
 		}
 	}
-
-	public void reverseList() {
-		this.tail = head;
-		Node rear, front;
-		rear = head;
-		head = head.next;
-		front = head.next;
-		this.tail.next = null;
-		while(true) {
-		head.next = rear;
-		rear = head;
-		if(front==null)
-			break;
-		head = front;
-		front = front.next;
-		}
+	
+	private void revDisplay(Node mid)
+	{
+		if(mid.next == null)
+			return;
+		mid = mid.next;
+		revDisplay(mid);
+		System.out.print(mid.data+"->");
+	}
+	
+	public void revDisplay()
+	{
+		Node start = head;
+		revDisplay(start);
+		System.out.println(head.data);
 	}
 }
