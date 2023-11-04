@@ -114,9 +114,37 @@ public class AllConversions {
 		return postfix.toString().trim();
 	}
 	
-	public static void infixToPrefix(String str)
+	public static String infixToPrefix(String str)
 	{
-		
+		String split[] = str.split(" ");
+		StringBuilder prefix = new StringBuilder();
+		StringBuilder split1 = new StringBuilder(); 
+		Stack<String> stack = new Stack<>();
+		for (int i = split.length-1; i>=0 ; i--) {
+			if (Character.isDigit(split[i].charAt(0))) {
+				split[i] = split1.append(split[i]).reverse().toString();
+			prefix.append(split[i]+" ");
+			split1.delete(0, split1.length());
+			}
+			else if (split[i].equals(")")) {				
+				stack.push(split[i]);
+			} 
+			else if (split[i].equals("(")) {
+				while (!stack.peek().equals(")")) {
+					prefix.append(stack.pop()+" ");
+				}
+				stack.pop();
+			} else {
+				while (!stack.isEmpty() && operatorPriority(stack.peek()) > operatorPriority(split[i]))
+					prefix.append(stack.pop()+" ");
+				stack.push(split[i]);
+			}
+		}
+		while (!stack.isEmpty()) {
+			prefix.append(stack.pop()+" ");
+		}
+
+		return prefix.reverse().toString().trim();
 	}
 	
 	public static void main(String[] args) {
@@ -131,6 +159,9 @@ public class AllConversions {
 		String inFix = "1 $ 9 + 3 * 4 - ( 6 + 18 / 2 ) + 7";
 		String toPostFix = infixToPostfix(inFix);
 		System.out.println("Infix to Postfix : "+toPostFix);
+		
+		String toPreFix = infixToPrefix(inFix);
+		System.out.println("Infix to Postfix : "+toPreFix);
 	}
 
 }
